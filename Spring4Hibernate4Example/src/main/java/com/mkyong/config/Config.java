@@ -1,4 +1,4 @@
-package com.journaldev.config;
+package com.mkyong.config;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -8,30 +8,47 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 @Configuration
-@ComponentScan(basePackages = { "com.journaldev.dao" })
+@ComponentScan(basePackages = { "com.mkyong.dao" })
 public class Config {
 
 	@Profile("testMemory")
 	@Bean(name = "hibernateProperties")
 	public Properties memoryHibernateProperties() throws IOException {
-		ClassPathResource classPathResource = new ClassPathResource(
-				"memoryHibernate.properties");
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.load(classPathResource.getInputStream());
+
+		hibernateProperties.put("hibernate.dialect",
+				"org.hibernate.dialect.HSQLDialect");
+		hibernateProperties.put("hibernate.show_sql", true);
+		hibernateProperties.put("hibernate.connection.driver_class",
+				"org.hsqldb.jdbcDriver");
+		hibernateProperties.put("hibernate.connection.username", "root");
+		hibernateProperties.put("hibernate.connection.password", "root");
+		hibernateProperties.put("hibernate.connection.url",
+				"jdbc:hsqldb:mem:mkyong");
+		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
+
 		return hibernateProperties;
 	}
-	
+
 	@Profile("testMysql")
 	@Bean(name = "hibernateProperties")
 	public Properties mysqlHibernateProperties() throws IOException {
-		ClassPathResource classPathResource = new ClassPathResource(
-				"memoryHibernate.properties");
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.load(classPathResource.getInputStream());
+
+		hibernateProperties.put("hibernate.dialect",
+				"org.hibernate.dialect.MySQL5Dialect");
+		hibernateProperties.put("hibernate.show_sql", true);
+		hibernateProperties.put("hibernate.connection.driver_class",
+				"com.mysql.jdbc.Driver");
+		hibernateProperties.put("hibernate.connection.username", "root");
+		hibernateProperties.put("hibernate.connection.password", "root");
+		hibernateProperties.put("hibernate.connection.url",
+				"jdbc:mysql://localhost:3306/TestDB");
+		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
+
 		return hibernateProperties;
 	}
 
@@ -42,7 +59,7 @@ public class Config {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
 		sessionFactory.setHibernateProperties(hibernateProperties);
-		sessionFactory.setPackagesToScan("com.journaldev.model");
+		sessionFactory.setPackagesToScan("com.mkyong.model");
 
 		return sessionFactory;
 	}
@@ -54,7 +71,7 @@ public class Config {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
 		sessionFactory.setHibernateProperties(hibernateProperties);
-		sessionFactory.setPackagesToScan("com.journaldev.model");
+		sessionFactory.setPackagesToScan("com.mkyong.model");
 
 		return sessionFactory;
 	}

@@ -1,17 +1,15 @@
-package com.mkyong.config;
+package com.mkyong.onetoone.config;
 
 import java.io.IOException;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 @Configuration
-@ComponentScan(basePackages = { "com.mkyong.dao" })
 public class Config {
 
 	@Profile("testMemory")
@@ -59,7 +57,7 @@ public class Config {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
 		sessionFactory.setHibernateProperties(hibernateProperties);
-		sessionFactory.setPackagesToScan("com.mkyong.model");
+		sessionFactory.setPackagesToScan("com.mkyong.onetoone.model");
 
 		return sessionFactory;
 	}
@@ -71,7 +69,7 @@ public class Config {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
 		sessionFactory.setHibernateProperties(hibernateProperties);
-		sessionFactory.setPackagesToScan("com.mkyong.model");
+		sessionFactory.setPackagesToScan("com.mkyong.onetoone.model");
 
 		return sessionFactory;
 	}

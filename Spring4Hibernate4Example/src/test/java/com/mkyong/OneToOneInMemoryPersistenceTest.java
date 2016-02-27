@@ -1,5 +1,8 @@
 package com.mkyong;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,18 +12,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.mkyong.config.Config;
-import com.mkyong.model.Stock;
-import com.mkyong.model.StockDetail;
+import com.mkyong.onetoone.config.Config;
+import com.mkyong.onetoone.model.Stock;
+import com.mkyong.onetoone.model.StockDetail;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { Config.class })

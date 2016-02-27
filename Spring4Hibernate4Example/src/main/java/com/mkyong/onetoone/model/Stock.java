@@ -1,4 +1,4 @@
-package com.mkyong.model;
+package com.mkyong.onetoone.model;
 
 import java.io.Serializable;
 

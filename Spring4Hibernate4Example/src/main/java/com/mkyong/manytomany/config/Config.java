@@ -1,4 +1,4 @@
-package com.mkyong.onetomany.config;
+package com.mkyong.manytomany.config;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -56,7 +56,7 @@ public class Config {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
 		sessionFactory.setHibernateProperties(hibernateProperties);
-		sessionFactory.setPackagesToScan("com.mkyong.onetomany.model");
+		sessionFactory.setPackagesToScan("com.mkyong.manytomany.model");
 
 		return sessionFactory;
 	}

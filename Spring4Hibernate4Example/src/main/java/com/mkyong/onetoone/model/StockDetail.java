@@ -27,6 +27,8 @@ public class StockDetail implements Serializable {
 	private String remark;
 	private Date listedDate;
 
+	// establecemos que la clave de un stockDetail depende directamente de la
+	// clave de un stock, tal que la clave de un detail es foranea
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "stock"))
 	@Id
 	@GeneratedValue(generator = "generator")
@@ -39,7 +41,7 @@ public class StockDetail implements Serializable {
 		this.stockId = stockId;
 	}
 
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	public Stock getStock() {
 		return stock;
@@ -49,7 +51,7 @@ public class StockDetail implements Serializable {
 		this.stock = stock;
 	}
 
-	@Column(name="COMP_NAME")
+	@Column(name = "COMP_NAME")
 	public String getCompName() {
 		return compName;
 	}
@@ -58,7 +60,7 @@ public class StockDetail implements Serializable {
 		this.compName = compName;
 	}
 
-	@Column(name="COMP_DESC")
+	@Column(name = "COMP_DESC")
 	public String getCompDesc() {
 		return compDesc;
 	}
@@ -67,7 +69,7 @@ public class StockDetail implements Serializable {
 		this.compDesc = compDesc;
 	}
 
-	@Column(name="REMARK")
+	@Column(name = "REMARK")
 	public String getRemark() {
 		return remark;
 	}
@@ -77,7 +79,7 @@ public class StockDetail implements Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="LISTED_DATE")
+	@Column(name = "LISTED_DATE")
 	public Date getListedDate() {
 		return listedDate;
 	}

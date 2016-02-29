@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>spittle</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" />
+</head>
+<body>
+	<h1 th:text="#{spittr.spittles.h1}">Recent Spittles</h1>
+
+	<div class="spittleForm">
+		<h1 th:text="#{spittr.spittles.spittleForm.h1}">Spit it out...</h1>
+		<form method="POST" name="spittleForm">
+			<input type="hidden" name="latitude" />
+			<input type="hidden" name="longitude" />
+			<textarea name="message" cols="80" rows="5"></textarea>
+			<br />
+			<input type="submit" value="Add" />
+		</form>
+	</div>
+
+
+	<div th:each="spittle: ${spittleList}">
+		<ul th:object="${spittle}">
+			<li th:text="'Id:' + *{id}">Spittle id</li>
+			<li th:text="'Message:' + *{message}">Message</li>
+			<li th:text="'Time' + *{time}">Time</li>
+		</ul>
+	</div>
+
+</body>
+</html>

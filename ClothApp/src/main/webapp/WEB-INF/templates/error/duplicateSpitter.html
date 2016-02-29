@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spittr</title>
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" />
+</head>
+<body>
+	<h1>Duplicate Spitter found!</h1>
+
+	<!-- This is how many of the attributes in the Thymeleaf namespace work: they mirror the standard -->
+	<!-- HTML attribute that they share a name with, to render some computed value. In this -->
+	<!-- case, all three uses of the th:href attribute use the @{} expressions to calculate -->
+	<!-- context-sensitive URL paths -->
+	<a th:href="@{/spittles}">Spittles</a>
+	<a th:href="@{/spitter/register}">Register</a>
+</body>
+</html>

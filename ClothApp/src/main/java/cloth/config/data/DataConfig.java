@@ -23,7 +23,7 @@ public class DataConfig {
 		hibernateProperties.put("hibernate.connection.driver_class", "org.hsqldb.jdbcDriver");
 		hibernateProperties.put("hibernate.connection.username", "root");
 		hibernateProperties.put("hibernate.connection.password", "root");
-		hibernateProperties.put("hibernate.connection.url", "jdbc:hsqldb:mem:mkyong");
+		hibernateProperties.put("hibernate.connection.url", "jdbc:hsqldb:mem:cloth");
 		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
 
 		return hibernateProperties;
@@ -39,7 +39,7 @@ public class DataConfig {
 		hibernateProperties.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
 		hibernateProperties.put("hibernate.connection.username", "root");
 		hibernateProperties.put("hibernate.connection.password", "root");
-		hibernateProperties.put("hibernate.connection.url", "jdbc:mysql://localhost:3306/mkyong");
+		hibernateProperties.put("hibernate.connection.url", "jdbc:mysql://localhost:3306/cloth");
 		hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
 
 		return hibernateProperties;

@@ -1,4 +1,4 @@
-package cloth.web;
+package cloth.web.user;
 
 import javax.validation.Valid;
 
@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cloth.model.User;
-import cloth.service.UserNotFoundException;
-import cloth.service.UserService;
+import cloth.service.user.UserNotFoundException;
+import cloth.service.user.UserService;
+import cloth.web.AbstractClothController;
+import cloth.web.ClothController;
 
 @Controller
 @RequestMapping(path = "/user")
@@ -24,10 +26,13 @@ public class UserController extends AbstractClothController {
 	@Autowired
 	@Qualifier("dataUserService")
 	UserService userService;
+	
+//	@Autowired
+//	DummyUsersCreator dummyUsersCreator;
 
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		model.addAttribute(new UserLoginForm());
+		setDefaultUserLoginForm(model);
 		return "login";
 	}
 
@@ -46,6 +51,10 @@ public class UserController extends AbstractClothController {
 	@ExceptionHandler(UserNotFoundException.class)
 	public String userNotFoundHandler() {
 		System.err.println("User not found!");
-		return "login";
+		return "redirect:/cloth";
+	}
+
+	private void setDefaultUserLoginForm(Model model) {
+		model.addAttribute(new UserLoginForm());
 	}
 }

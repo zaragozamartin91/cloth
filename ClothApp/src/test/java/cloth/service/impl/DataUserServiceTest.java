@@ -1,6 +1,7 @@
 package cloth.service.impl;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import cloth.config.data.DataConfig;
 import cloth.config.service.ServiceConfig;
 import cloth.data.UserData;
 import cloth.model.User;
-import cloth.service.UserService;
+import cloth.service.user.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { DataConfig.class, ServiceConfig.class })

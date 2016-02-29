@@ -1,4 +1,4 @@
-package cloth.service.impl;
+package cloth.service.user.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cloth.model.User;
-import cloth.service.UserNotFoundException;
-import cloth.service.UserService;
+import cloth.service.user.UserNotFoundException;
+import cloth.service.user.UserService;
 
 @Service
 public class DataUserService implements UserService {
@@ -46,5 +46,16 @@ public class DataUserService implements UserService {
 		}
 
 		return user;
+	}
+
+	@Override
+	public boolean validateUser(String email, String password) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("email", email));
+		criteria.add(Restrictions.eq("password", password));
+		User user = (User) criteria.uniqueResult();
+
+		return user == null;
 	}
 }

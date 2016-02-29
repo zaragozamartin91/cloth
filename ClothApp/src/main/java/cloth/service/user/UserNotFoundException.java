@@ -1,4 +1,4 @@
-package cloth.service;
+package cloth.service.user;
 
 public class UserNotFoundException extends RuntimeException {
 

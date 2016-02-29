@@ -1,4 +1,4 @@
-package cloth.web;
+package cloth.web.user;
 
 public class UserForm {
 

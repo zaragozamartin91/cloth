@@ -13,7 +13,7 @@ public class HomeController extends AbstractClothController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Model model) {
 		if (isCurrentUserPresent(model)) {
-			System.out.println("No login user found...");
+			System.out.println("Login user found!");
 			return "home";
 		}
 

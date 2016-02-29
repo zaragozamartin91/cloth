@@ -1,5 +1,6 @@
 package cloth.web.user;
 
+import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import cloth.model.User;
 import cloth.service.user.UserService;
+import cloth.service.user.impl.DummyUsersCreator;
 import cloth.web.AbstractClothController;
 import cloth.web.ClothController;
 
@@ -24,8 +26,13 @@ public class UserController extends AbstractClothController {
 	@Qualifier("dataUserService")
 	UserService userService;
 
-	// @Autowired
-	// DummyUsersCreator dummyUsersCreator;
+	/* Crea usuarios de debug. Unicamente trabaja con el perfil de spring 'test' */
+	@Autowired(required = false)
+	DummyUsersCreator dummyUsersCreator;
+
+	@PostConstruct
+	private void init() {
+	}
 
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -55,15 +62,8 @@ public class UserController extends AbstractClothController {
 	}
 
 	private void setLoginErrorMessage(Model model, String userEmail) {
-//		String errorMessage = "User " + userEmail + " not valid";
 		model.addAttribute("loginErrorUserEmail", userEmail);
 	}
-
-	// @ExceptionHandler(UserNotFoundException.class)
-	// public String userNotFoundHandler() {
-	// System.err.println("User not found!");
-	// return "redirect:/cloth";
-	// }
 
 	private void setDefaultUserLoginForm(Model model) {
 		model.addAttribute("userLoginForm", new UserLoginForm());

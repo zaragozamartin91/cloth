@@ -2,27 +2,30 @@ package cloth.data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.validator.constraints.Email;
 
 import cloth.model.User;
 
 @Entity
 public class UserData implements User {
-	private Integer id;
+	private String email;
 	private String name;
 	private Long dni;
+	private String password;
 
+	@Override
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	public Integer getId() {
-		return id;
+	@Column(nullable = false, unique = true)
+	@Email
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	@Override
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
@@ -48,10 +51,22 @@ public class UserData implements User {
 	}
 
 	@Override
+	@Column(nullable = false)
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -70,11 +85,21 @@ public class UserData implements User {
 				return false;
 		} else if (!dni.equals(other.dni))
 			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "UserData [email=" + email + ", name=" + name + ", dni=" + dni + "]";
 	}
 }

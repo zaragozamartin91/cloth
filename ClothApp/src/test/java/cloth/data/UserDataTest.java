@@ -13,11 +13,11 @@ public class UserDataTest extends DataTest {
 		User expectedUser = new UserData();
 		expectedUser.setDni(12345L);
 		expectedUser.setName("Martin");
+		expectedUser.setEmail("zaragoza@gmail.com");
 
 		perform(session -> session.save(expectedUser));
 		perform(session -> {
-			User actualUser = (User) session.createCriteria(User.class).list()
-					.get(0);
+			User actualUser = (User) session.createCriteria(User.class).list().get(0);
 			assertEquals(expectedUser, actualUser);
 			return actualUser;
 		});

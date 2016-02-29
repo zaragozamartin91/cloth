@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Cloth</title>
+
+<script th:src="@{/resources/jquery-2.2.1.min.js}"></script>
+
+<link rel="stylesheet" type="text/css" th:href="@{/resources/homeStyle.css}" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css" />
+
+</head>
+<body>
+	<script defer="defer" src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+
+	<hgroup>
+		<h1>Cloth</h1>
+		<h3 th:text="#{cloth.login.prompt}">Please login</h3>
+	</hgroup>
+	<form method="post" action="/user/login" th:object="${userLoginForm}">
+		<div class="group">
+			<input type="email" th:field="*{email}"></input><span class="highlight"></span><span class="bar"></span> <label>Email</label>
+		</div>
+		<div class="group">
+			<input type="password" th:field="*{password}"></input><span class="highlight"></span><span class="bar"></span> <label>Password</label>
+		</div>
+		<button class="button buttonBlue">
+			Subscribe
+			<div class="ripples buttonRipples">
+				<span class="ripplesCircle"></span>
+			</div>
+		</button>
+	</form>
+
+
+	<script>
+		$(window, document, undefined)
+				.ready(
+						function() {
+
+							$('input').blur(function() {
+								var $this = $(this);
+								if ($this.val())
+									$this.addClass('used');
+								else
+									$this.removeClass('used');
+							});
+
+							var $ripples = $('.ripples');
+
+							$ripples.on('click.Ripples', function(e) {
+
+								var $this = $(this);
+								var $offset = $this.parent().offset();
+								var $circle = $this.find('.ripplesCircle');
+
+								var x = e.pageX - $offset.left;
+								var y = e.pageY - $offset.top;
+
+								$circle.css({
+									top : y + 'px',
+									left : x + 'px'
+								});
+
+								$this.addClass('is-active');
+
+							});
+
+							$ripples
+									.on(
+											'animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd',
+											function(e) {
+												$(this)
+														.removeClass(
+																'is-active');
+											});
+
+						});
+	</script>
+</body>
+</html>

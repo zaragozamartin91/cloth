@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Spittr</title>
-<link rel="stylesheet" type="text/css" th:href="@{/resources/homeStyle.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css" />
 
@@ -10,70 +10,34 @@
 <body>
 	<script defer="defer" src="https://code.getmdl.io/1.1.1/material.min.js"></script>
 
-
-	<hgroup>
-		<h1>Cloth</h1>
-		<h3>Please login</h3>
-	</hgroup>
-	<form>
-		<div class="group">
-			<input type="text"></input><span class="highlight"></span><span class="bar"></span> <label>Name</label>
-		</div>
-		<div class="group">
-			<input type="email"></input><span class="highlight"></span><span class="bar"></span> <label>Email</label>
-		</div>
-		<button type="button" class="button buttonBlue">
-			Subscribe
-			<div class="ripples buttonRipples">
-				<span class="ripplesCircle"></span>
+	<!-- Always shows a header, even in smaller screens. -->
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title" th:text="#{cloth.home.title}">Title</span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+				<!-- Navigation. We hide it in small screens. -->
+				<nav class="mdl-navigation mdl-layout--large-screen-only">
+					<a class="mdl-navigation__link" href="">Link</a> <a class="mdl-navigation__link" href="">Link</a> <a
+						class="mdl-navigation__link" href="">Link</a> <a class="mdl-navigation__link" href="">Link</a>
+				</nav>
 			</div>
-		</button>
-	</form>
+		</header>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">Title</span>
+			<nav class="mdl-navigation">
+				<a class="mdl-navigation__link" href="">Link</a> <a class="mdl-navigation__link" href="">Link</a> <a
+					class="mdl-navigation__link" href="">Link</a> <a class="mdl-navigation__link" href="">Link</a>
+			</nav>
+		</div>
+		<main class="mdl-layout__content">
+		<div class="page-content">
+			<!-- Your content goes here -->
+		</div>
+		</main>
+	</div>
 
-
-	<script>
-		$(window, document, undefined)
-				.ready(
-						function() {
-
-							$('input').blur(function() {
-								var $this = $(this);
-								if ($this.val())
-									$this.addClass('used');
-								else
-									$this.removeClass('used');
-							});
-
-							var $ripples = $('.ripples');
-
-							$ripples.on('click.Ripples', function(e) {
-
-								var $this = $(this);
-								var $offset = $this.parent().offset();
-								var $circle = $this.find('.ripplesCircle');
-
-								var x = e.pageX - $offset.left;
-								var y = e.pageY - $offset.top;
-
-								$circle.css({
-									top : y + 'px',
-									left : x + 'px'
-								});
-
-								$this.addClass('is-active');
-
-							});
-
-							$ripples
-									.on(
-											'animationend webkitAnimationEnd mozAnimationEnd oanimationend MSAnimationEnd',
-											function(e) {
-												$(this)
-														.removeClass(
-																'is-active');
-											});
-
-						});
-	</script>
 </body>
 </html>

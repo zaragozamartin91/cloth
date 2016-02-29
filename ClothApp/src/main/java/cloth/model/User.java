@@ -16,4 +16,12 @@ public interface User {
 
 	void setDni(Long dni);
 
+	String getEmail();
+
+	void setEmail(String email);
+
+	String getPassword();
+
+	void setPassword(String password);
+
 }

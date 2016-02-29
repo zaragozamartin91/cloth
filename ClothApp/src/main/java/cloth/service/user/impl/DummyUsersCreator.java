@@ -12,6 +12,12 @@ import cloth.data.UserData;
 import cloth.model.User;
 import cloth.service.user.UserService;
 
+/**
+ * Crea usuarios dummy para probar la aplicacion.
+ * 
+ * @author martin.zaragoza
+ *
+ */
 @Service
 @DependsOn({ "dataUserService" })
 @Profile("test")

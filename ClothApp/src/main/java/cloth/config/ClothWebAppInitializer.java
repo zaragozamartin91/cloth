@@ -39,7 +39,8 @@ public class ClothWebAppInitializer extends AbstractAnnotationConfigDispatcherSe
 		super.onStartup(servletContext);
 
 		servletContext.setInitParameter("spring.profiles.active", "test");
-
+		servletContext.setInitParameter("spring.thymeleaf.mode", "LEGACYHTML5");
+		
 		System.setProperty("spring.thymeleaf.mode", "LEGACYHTML5");
 	}
 

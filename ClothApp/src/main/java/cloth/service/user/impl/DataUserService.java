@@ -12,6 +12,12 @@ import cloth.model.User;
 import cloth.service.user.UserNotFoundException;
 import cloth.service.user.UserService;
 
+/**
+ * Servicio de usuarios que hace uso de la base de datos.
+ * 
+ * @author martin.zaragoza
+ *
+ */
 @Service
 public class DataUserService implements UserService {
 	@Autowired

@@ -43,6 +43,7 @@ public class UserController extends AbstractClothController {
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
 	public String login(@Valid UserLoginForm userLoginForm, Errors errors, Model model) {
 		if (errors.hasErrors()) {
+			System.err.println("Errors detected in form running UserController#login");
 			return "login";
 		}
 
@@ -50,6 +51,9 @@ public class UserController extends AbstractClothController {
 		String userEmail = userLoginForm.getEmail();
 		try {
 			currentUser = userService.getUserFromEmail(userEmail);
+			if (passwordNotValid(userLoginForm, currentUser)) {
+				throw new RuntimeException("Password of " + currentUser.getEmail() + " not valid!");
+			}
 		} catch (Exception e) {
 			setDefaultUserLoginForm(model);
 			setLoginErrorMessage(model, userEmail);
@@ -59,6 +63,10 @@ public class UserController extends AbstractClothController {
 		setCurrentUser(currentUser, model);
 
 		return "redirect:/cloth";
+	}
+
+	private boolean passwordNotValid(UserLoginForm userLoginForm, User currentUser) {
+		return !currentUser.getPassword().equals(userLoginForm.getPassword());
 	}
 
 	private void setLoginErrorMessage(Model model, String userEmail) {

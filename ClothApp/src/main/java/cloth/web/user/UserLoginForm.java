@@ -13,7 +13,7 @@ public class UserLoginForm {
 	
 	@NotNull
 	@Size(min = 5, max = 25, message = "{password.size}")
-	@Pattern(regexp = "[A-Z](\\d|\\w)+")
+	@Pattern(regexp = "[A-Z](\\d|\\w)+" , message = "{password.regexp}")
 	private String password;
 
 	public String getEmail() {

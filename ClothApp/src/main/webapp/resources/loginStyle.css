@@ -235,6 +235,19 @@ footer img:hover { opacity: .83; }
 
 footer img:focus , footer a:focus { outline: none; }
 
-.error {
+span.error {
 	color: red;
+}
+
+div.errors {
+	background-color: #ffcccc;
+	border: 2px solid red;
+}
+
+label.error {
+	color: red;
+}
+
+input.error {
+	background-color: #ffcccc;
 }

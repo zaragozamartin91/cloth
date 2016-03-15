@@ -1,0 +1,13 @@
+.mdl-grid {
+	background-color: gray;
+	border: medium;
+	border-color: blue;
+	margin: 5px;
+}
+
+.mdl-grid div {
+	background-color: gray;
+	border: medium;
+	border-color: blue;
+	margin: 5px;
+}

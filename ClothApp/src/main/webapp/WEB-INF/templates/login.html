@@ -16,9 +16,10 @@
 	<hgroup>
 		<h1>Cloth</h1>
 		<h3 th:text="#{cloth.login.prompt}">Please login</h3>
-		<!-- 		SI LA PROPIEDAD loginErrorUserEmail ESTA SETEADA EN EL MODELO ENTONCES QUIERE DECIR QUE EL USUARIO NO FUE ENCONTRADO -->
+		<!-- SI LA PROPIEDAD loginErrorUserEmail ESTA SETEADA EN EL MODELO ENTONCES QUIERE DECIR QUE EL USUARIO NO FUE ENCONTRADO -->
 		<h4 th:text="${loginErrorUserEmail} ? #{cloth.login.userNotFound(${loginErrorUserEmail})}" class="error">Error message</h4>
 	</hgroup>
+	
 	<form method="post" action="/user/login" th:object="${userLoginForm}">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>

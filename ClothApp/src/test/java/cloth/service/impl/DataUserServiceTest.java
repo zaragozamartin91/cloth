@@ -1,6 +1,6 @@
 package cloth.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cloth.config.data.DataConfig;
 import cloth.config.service.ServiceConfig;
-import cloth.data.UserData;
-import cloth.model.User;
+import cloth.data.user.DataUser;
+import cloth.model.user.User;
 import cloth.service.user.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,12 +26,12 @@ public class DataUserServiceTest {
 
 	@Test
 	public void testGetUserFromEmail() {
-		String email = "martin@zaragoza.com";
+		String email = "nicolas@sibi.com";
 
-		User user = new UserData();
+		User user = new DataUser();
 		user.setEmail(email);
 		user.setDni(1234L);
-		user.setName("martin");
+		user.setName("nicolas");
 		user.setPassword("1234");
 
 		userService.addUser(user);

@@ -8,8 +8,9 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import cloth.data.UserData;
-import cloth.model.User;
+import cloth.data.user.DataUser;
+import cloth.model.user.User;
+import cloth.model.user.UserAccess;
 import cloth.service.user.UserService;
 
 /**
@@ -26,8 +27,8 @@ public class DummyUsersCreator {
 	@Qualifier("dataUserService")
 	private UserService userService;
 
-	private User createUser(String email, String name, long dni, String password) {
-		User user = new UserData();
+	private UserAccess createUser(String email, String name, long dni, String password) {
+		User user = new DataUser();
 		user.setDni(dni);
 		user.setEmail(email);
 		user.setName(name);

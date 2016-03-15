@@ -1,6 +1,6 @@
 package cloth.service.user;
 
-import cloth.model.User;
+import cloth.model.user.UserAccess;
 
 /**
  * Facilita la manipulacion de usuarios.
@@ -17,7 +17,7 @@ public interface UserService {
 	 *            - Usuario a agregar.
 	 * @return Usuario agregado.
 	 */
-	User addUser(User user);
+	UserAccess addUser(UserAccess user);
 
 	/**
 	 * Recupera un usuario a partir de su email.
@@ -28,7 +28,7 @@ public interface UserService {
 	 * @throws UserNotFoundException
 	 *             - En caso de no encontrar al usuario especificado.
 	 */
-	User getUserFromEmail(String email);
+	UserAccess getUserFromEmail(String email);
 
 	/**
 	 * Valida las credenciales de un usuario.

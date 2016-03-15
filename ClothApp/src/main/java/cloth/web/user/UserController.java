@@ -1,5 +1,8 @@
 package cloth.web.user;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
@@ -9,19 +12,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import cloth.model.User;
+import cloth.model.user.UserAccess;
 import cloth.service.user.UserService;
 import cloth.service.user.impl.DummyUsersCreator;
 import cloth.web.AbstractClothController;
 import cloth.web.ClothController;
+import cloth.web.Views;
 
 @Controller
 @RequestMapping(path = "/user")
 @SessionAttributes(ClothController.CURRENT_USER_SESSION_ATTRIBUTE)
 public class UserController extends AbstractClothController {
+	private static final String REDIRECT_HOME = Views.REDIRECT_HOME.id();
+	private static final String LOGIN_VIEW_NAME = Views.LOGIN.id();
+
 	@Autowired
 	@Qualifier("dataUserService")
 	UserService userService;
@@ -34,20 +40,38 @@ public class UserController extends AbstractClothController {
 	private void init() {
 	}
 
-	@RequestMapping(path = "/login", method = RequestMethod.GET)
-	public String login(Model model) {
-		setDefaultUserLoginForm(model);
-		return "login";
+	@RequestMapping(path = "/register", method = GET)
+	public String register(Model model) {
+		setDefaultUserRegisterForm(model);
+		return LOGIN_VIEW_NAME;
 	}
 
-	@RequestMapping(path = "/login", method = RequestMethod.POST)
+	@RequestMapping(path = "/register", method = POST)
+	public String register(@Valid UserRegisterForm userRegisterForm, Errors errors, Model model) {
+		if (errors.hasErrors()) {
+			System.err.println("Errors detected in form running UserController#register");
+			return LOGIN_VIEW_NAME;
+		}
+
+		
+		
+		return REDIRECT_HOME;
+	}
+
+	@RequestMapping(path = "/login", method = GET)
+	public String login(Model model) {
+		setDefaultUserLoginForm(model);
+		return LOGIN_VIEW_NAME;
+	}
+
+	@RequestMapping(path = "/login", method = POST)
 	public String login(@Valid UserLoginForm userLoginForm, Errors errors, Model model) {
 		if (errors.hasErrors()) {
 			System.err.println("Errors detected in form running UserController#login");
-			return "login";
+			return LOGIN_VIEW_NAME;
 		}
 
-		User currentUser;
+		UserAccess currentUser;
 		String userEmail = userLoginForm.getEmail();
 		try {
 			currentUser = userService.getUserFromEmail(userEmail);
@@ -57,15 +81,15 @@ public class UserController extends AbstractClothController {
 		} catch (Exception e) {
 			setDefaultUserLoginForm(model);
 			setLoginErrorMessage(model, userEmail);
-			return "login";
+			return LOGIN_VIEW_NAME;
 		}
 
 		setCurrentUser(currentUser, model);
 
-		return "redirect:/cloth";
+		return REDIRECT_HOME;
 	}
 
-	private boolean passwordNotValid(UserLoginForm userLoginForm, User currentUser) {
+	private boolean passwordNotValid(UserLoginForm userLoginForm, UserAccess currentUser) {
 		return !currentUser.getPassword().equals(userLoginForm.getPassword());
 	}
 
@@ -75,5 +99,9 @@ public class UserController extends AbstractClothController {
 
 	private void setDefaultUserLoginForm(Model model) {
 		model.addAttribute("userLoginForm", new UserLoginForm());
+	}
+
+	private void setDefaultUserRegisterForm(Model model) {
+		model.addAttribute("userRegisterForm", new UserRegisterForm());
 	}
 }

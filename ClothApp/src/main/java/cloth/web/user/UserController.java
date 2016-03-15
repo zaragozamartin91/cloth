@@ -19,14 +19,14 @@ import cloth.service.user.UserService;
 import cloth.service.user.impl.DummyUsersCreator;
 import cloth.web.AbstractClothController;
 import cloth.web.ClothController;
-import cloth.web.Views;
+import cloth.web.ViewName;
 
 @Controller
 @RequestMapping(path = "/user")
 @SessionAttributes(ClothController.CURRENT_USER_SESSION_ATTRIBUTE)
 public class UserController extends AbstractClothController {
-	private static final String REDIRECT_HOME = Views.REDIRECT_HOME.id();
-	private static final String LOGIN_VIEW_NAME = Views.LOGIN.id();
+	private static final String REDIRECT_HOME = ViewName.REDIRECT_HOME.id();
+	private static final String LOGIN_VIEW_NAME = ViewName.LOGIN.id();
 
 	@Autowired
 	@Qualifier("dataUserService")

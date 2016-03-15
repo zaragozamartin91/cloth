@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping(path = { "/cloth", "/" })
 @SessionAttributes({ ClothController.CURRENT_USER_SESSION_ATTRIBUTE })
 public class HomeController extends AbstractClothController {
-	private static final String REDIRECT_USER_LOGIN = Views.REDIRECT_USER_LOGIN.id();
+	private static final String REDIRECT_USER_LOGIN = ViewName.REDIRECT_USER_LOGIN.id();
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String home(Model model) {

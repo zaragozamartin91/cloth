@@ -27,6 +27,9 @@
 				<li th:each="err: ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
 			</ul>
 		</div>
+		<div  th:if="${#fields.hasErrors('*')}">
+			<br/><br/>
+		</div>
 
 		<div class="group">
 			<input type="email" th:field="*{email}"></input><span class="highlight"></span><span class="bar"></span> <label>Email</label>

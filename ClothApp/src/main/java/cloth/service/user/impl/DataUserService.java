@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import cloth.data.user.DataUser;
 import cloth.model.user.User;
 import cloth.model.user.UserAccess;
+import cloth.service.user.UserAddException;
 import cloth.service.user.UserNotFoundException;
 import cloth.service.user.UserService;
 
@@ -24,17 +25,18 @@ import cloth.service.user.UserService;
 public class DataUserService implements UserService {
 	@Autowired
 	SessionFactory sessionFactory;
-	
+
 	@Override
 	public UserAccess addUser(UserAccess userAccess) {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 
 		try {
-			session.save( new DataUser(userAccess) );
+			session.save(new DataUser(userAccess));
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
+			throw new UserAddException("Error al agregar el usuario " + userAccess.getEmail(), e);
 		}
 
 		session.close();
@@ -64,6 +66,6 @@ public class DataUserService implements UserService {
 		criteria.add(Restrictions.eq("password", password));
 		UserAccess user = (UserAccess) criteria.uniqueResult();
 
-		return user == null;
+		return user != null;
 	}
 }

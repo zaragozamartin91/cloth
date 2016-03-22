@@ -27,6 +27,7 @@ import cloth.web.ViewName;
 public class UserController extends AbstractClothController {
 	private static final String REDIRECT_HOME = ViewName.REDIRECT_HOME.id();
 	private static final String LOGIN_VIEW_NAME = ViewName.LOGIN.id();
+	private static final String REGISTER_VIEW_NAME = ViewName.REGISTER.id();
 
 	@Autowired
 	@Qualifier("dataUserService")
@@ -43,18 +44,24 @@ public class UserController extends AbstractClothController {
 	@RequestMapping(path = "/register", method = GET)
 	public String register(Model model) {
 		setDefaultUserRegisterForm(model);
-		return LOGIN_VIEW_NAME;
+		return REGISTER_VIEW_NAME;
 	}
 
 	@RequestMapping(path = "/register", method = POST)
 	public String register(@Valid UserRegisterForm userRegisterForm, Errors errors, Model model) {
 		if (errors.hasErrors()) {
 			System.err.println("Errors detected in form running UserController#register");
-			return LOGIN_VIEW_NAME;
+			return REGISTER_VIEW_NAME;
 		}
 
-		
-		
+		try {
+			UserAccess newUser = userService.addUser(userRegisterForm);
+			setCurrentUser(newUser, model);
+		} catch (Exception e) {
+			setDuplicateUserError(model, userRegisterForm.getEmail());
+			return REGISTER_VIEW_NAME;
+		}
+
 		return REDIRECT_HOME;
 	}
 
@@ -71,27 +78,27 @@ public class UserController extends AbstractClothController {
 			return LOGIN_VIEW_NAME;
 		}
 
-		UserAccess currentUser;
 		String userEmail = userLoginForm.getEmail();
 		try {
-			currentUser = userService.getUserFromEmail(userEmail);
-			if (passwordNotValid(userLoginForm, currentUser)) {
-				throw new RuntimeException("Password of " + currentUser.getEmail() + " not valid!");
+			if(userNotValid(userLoginForm)){
+				throw new RuntimeException("User " + userLoginForm.getEmail() + " not valid!");
 			}
+			
+			UserAccess currentUser = userService.getUserFromEmail(userEmail);
+			setCurrentUser(currentUser, model);
 		} catch (Exception e) {
 			setDefaultUserLoginForm(model);
 			setLoginErrorMessage(model, userEmail);
 			return LOGIN_VIEW_NAME;
 		}
 
-		setCurrentUser(currentUser, model);
-
 		return REDIRECT_HOME;
 	}
 
-	private boolean passwordNotValid(UserLoginForm userLoginForm, UserAccess currentUser) {
-		return !currentUser.getPassword().equals(userLoginForm.getPassword());
+	private boolean userNotValid(UserLoginForm userLoginForm) {
+		return !userService.validateUser(userLoginForm.getEmail(), userLoginForm.getPassword());
 	}
+
 
 	private void setLoginErrorMessage(Model model, String userEmail) {
 		model.addAttribute("loginErrorUserEmail", userEmail);
@@ -103,5 +110,9 @@ public class UserController extends AbstractClothController {
 
 	private void setDefaultUserRegisterForm(Model model) {
 		model.addAttribute("userRegisterForm", new UserRegisterForm());
+	}
+
+	private void setDuplicateUserError(Model model, String userEmail) {
+		model.addAttribute("duplicateUserError", userEmail);
 	}
 }

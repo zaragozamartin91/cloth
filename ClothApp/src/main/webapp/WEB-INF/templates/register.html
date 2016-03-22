@@ -5,7 +5,7 @@
 
 <script th:src="@{/resources/jquery-2.2.1.min.js}"></script>
 
-<link rel="stylesheet" type="text/css" th:href="@{/resources/loginStyle.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/registerStyle.css}" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css" />
 
@@ -15,12 +15,12 @@
 
 	<hgroup>
 		<h1>Cloth</h1>
-		<h3 th:text="#{cloth.login.prompt}">Please login</h3>
-		<!-- SI LA PROPIEDAD loginErrorUserEmail ESTA SETEADA EN EL MODELO ENTONCES QUIERE DECIR QUE EL USUARIO NO FUE ENCONTRADO -->
-		<h4 th:text="${loginErrorUserEmail} ? #{cloth.login.userNotFound(${loginErrorUserEmail})}" class="error">Error message</h4>
+		<h3>Please Register</h3>
+		<!-- SI LA PROPIEDAD duplicateUserError ESTA SETEADA EN EL MODELO ENTONCES QUIERE DECIR QUE EL USUARIO YA SE HABIA REGISTRADO ANTES -->
+		<h4 th:text="${duplicateUserError} ? ${'User '+duplicateUserError+' exists!'}" class="error">Error message</h4>
 	</hgroup>
 	
-	<form method="post" action="/user/login" th:object="${userLoginForm}">
+	<form method="post" action="/user/register" th:object="${userRegisterForm}">
 		<div class="errors" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<!-- se declarara un <li> por cada error encontrado. cada error se guarda en una variable temporal 'err' -->
@@ -35,18 +35,28 @@
 			<input type="email" th:field="*{email}"></input><span class="highlight"></span><span class="bar"></span> <label>Email</label>
 		</div>
 		<div class="group">
+			<input th:field="*{name}"></input><span class="highlight"></span><span class="bar"></span> <label>Name</label>
+		</div>
+		<div class="group">
+			<input th:field="*{dni}"></input><span class="highlight"></span><span class="bar"></span> <label>Dni</label>
+		</div>
+		<div class="group">
 			<input type="password" th:field="*{password}"></input><span class="highlight"></span><span class="bar"></span> <label
 				th:class="${#fields.hasErrors('password')}? 'error'">Password</label>
 		</div>
+		<div class="group">
+			<input type="password" th:field="*{duplicatePassword}"></input><span class="highlight"></span><span class="bar"></span> <label
+				th:class="${#fields.hasErrors('duplicatePassword')}? 'error'">Re-enter password</label>
+		</div>
 		<button class="button buttonBlue">
-			Login
+			Register
 			<div class="ripples buttonRipples">
 				<span class="ripplesCircle"></span>
 			</div>
 		</button>
-		<a th:href="@{/user/register}">Register</a>
+		<a th:href="@{/user/login}">Login</a>
 	</form>
-	
+
 
 	<script>
 		$(window, document, undefined)

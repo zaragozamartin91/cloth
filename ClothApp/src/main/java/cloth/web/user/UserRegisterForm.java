@@ -7,7 +7,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
-public class UserRegisterForm {
+import cloth.model.user.UserAccess;
+
+public class UserRegisterForm implements UserAccess {
 	@NotNull(message = "{email.valid}")
 	@Email(message = "{email.valid}")
 	private String email;
@@ -17,7 +19,7 @@ public class UserRegisterForm {
 	private String name;
 
 	@NotNull(message = "{dni.valid}")
-	@DecimalMin(value = "1000000.00", message="{dni.size}")
+	@DecimalMin(value = "1000000.00", message = "{dni.size}")
 	private Long dni;
 
 	@NotNull

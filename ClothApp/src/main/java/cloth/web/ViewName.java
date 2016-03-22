@@ -1,7 +1,8 @@
 package cloth.web;
 
 public enum ViewName {
-	REDIRECT_USER_LOGIN("redirect:/user/login"), REDIRECT_HOME("redirect:/cloth"), LOGIN("login"), HOME("home");
+	REDIRECT_USER_LOGIN("redirect:/user/login"), REDIRECT_HOME("redirect:/cloth"), REGISTER("register"), LOGIN("login"), HOME(
+			"home");
 
 	private String id;
 
